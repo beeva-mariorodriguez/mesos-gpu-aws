@@ -1,0 +1,36 @@
+{
+  "id": "caffe",
+  "cmd": "/go/bin/caffe-server /caffe/models/bvlc_reference_caffenet/deploy.prototxt /caffe/models/bvlc_reference_caffenet/bvlc_reference_caffenet.caffemodel /caffe/data/ilsvrc12/imagenet_mean.binaryproto /caffe/data/ilsvrc12/synset_words.txt",
+  "cpus": 4,
+  "mem": 1024,
+  "disk": 512,
+  "gpus":1,
+  "instances": 1,
+  "container": {
+    "docker": {
+      "image": "beevamariorodriguez/nvidia_caffe_server:nvidia"
+    },
+    "type": "MESOS",
+    "volumes": []
+  },
+  "env": {
+    "LD_LIBRARY_PATH": "/usr/local/nvidia/lib64"
+  },
+  "volumes": [
+      {
+        "containerPath": "/usr/local/nvidia",
+        "hostPath": "/usr/local/nvidia",
+        "mode": "RO"
+      }
+    ],
+  "portDefinitions": [
+    {
+      "port": 0,
+      "protocol": "tcp",
+      "name": null,
+      "labels": null
+    }
+  ],
+  "labels": {},
+  "healthChecks": []
+}
