@@ -121,6 +121,8 @@ resource "aws_instance" "mesos_agent_gpu" {
       user = "admin"
     }
   }
-
+  root_block_device = {
+      volume_size = 30
+  }
   count = "${var.mesos_gpu_nodes}"
 }
