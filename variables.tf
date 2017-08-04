@@ -49,3 +49,8 @@ variable "aws_master_ami" {
   type    = "string"
   default = "ami-b2795cd7" # debian-jessie-amd64-hvm-2017-01-15-1221-ebs @ us-east-2
 }
+
+variable "domain_name" {
+  type    = "string"
+  default = "mesos.private"
+}
