@@ -8,7 +8,7 @@ resource "aws_instance" "mesos_master" {
   }
 
   subnet_id  = "${aws_subnet.mesos.id}"
-  depends_on = ["aws_internet_gateway.gw"]
+  depends_on = ["aws_internet_gateway.gw", "aws_route53_zone.private"]
   key_name   = "${var.aws_key_name}"
 
   vpc_security_group_ids = [
@@ -24,7 +24,7 @@ resource "aws_instance" "mesos_master" {
       "sudo apt update",
       "sudo apt install -y --force-yes --no-install-recommends mesos",
       "echo ${self.private_ip} | sudo tee /etc/mesos-master/advertise_ip",
-      "echo zk://${aws_instance.zk.private_ip}:2181/mesos | sudo tee /etc/mesos/zk",
+      "echo zk://zookeeper.${var.domain_name}:2181/mesos | sudo tee /etc/mesos/zk",
       "sudo systemctl start mesos-master",
       "sudo systemctl enable mesos-master",
       "sudo apt install -y -t jessie-backports  openjdk-8-jre-headless",
@@ -52,7 +52,7 @@ resource "aws_instance" "mesos_agent" {
   }
 
   subnet_id  = "${aws_subnet.mesos.id}"
-  depends_on = ["aws_internet_gateway.gw"]
+  depends_on = ["aws_internet_gateway.gw", "aws_route53_zone.private"]
   key_name   = "${var.aws_key_name}"
 
   vpc_security_group_ids = [
@@ -69,7 +69,7 @@ resource "aws_instance" "mesos_agent" {
       "sudo apt install -y --force-yes --no-install-recommends mesos",
       "echo ${self.private_ip} | sudo tee /etc/mesos-slave/advertise_ip",
       "echo appc,docker | sudo tee /etc/mesos-slave/image_providers",
-      "echo zk://${aws_instance.zk.private_ip}:2181/mesos | sudo tee /etc/mesos/zk",
+      "echo zk://zookeeper.${var.domain_name}:2181/mesos | sudo tee /etc/mesos/zk",
       "echo docker/runtime,filesystem/linux,cgroups/devices | sudo tee /etc/mesos-slave/isolation",
       "sudo systemctl start mesos-slave",
       "sudo systemctl enable mesos-slave",
@@ -93,7 +93,7 @@ resource "aws_instance" "mesos_agent_gpu" {
   }
 
   subnet_id  = "${aws_subnet.mesos.id}"
-  depends_on = ["aws_internet_gateway.gw"]
+  depends_on = ["aws_internet_gateway.gw", "aws_route53_zone.private"]
   key_name   = "${var.aws_key_name}"
 
   vpc_security_group_ids = [
@@ -110,7 +110,7 @@ resource "aws_instance" "mesos_agent_gpu" {
       "sudo apt install -y --force-yes --no-install-recommends mesos",
       "echo ${self.private_ip} | sudo tee /etc/mesos-slave/advertise_ip",
       "echo appc,docker | sudo tee /etc/mesos-slave/image_providers",
-      "echo zk://${aws_instance.zk.private_ip}:2181/mesos | sudo tee /etc/mesos/zk",
+      "echo zk://zookeepeer.${var.domain_name}:2181/mesos | sudo tee /etc/mesos/zk",
       "echo docker/runtime,filesystem/linux,cgroups/devices,gpu/nvidia | sudo tee /etc/mesos-slave/isolation",
       "sudo systemctl start mesos-slave",
       "sudo systemctl enable mesos-slave",
