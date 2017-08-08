@@ -1,20 +1,5 @@
 # tfmesos framework
 
-# tfmesos listens for connections from the workers
-# on a random port 
-resource "aws_security_group" "tfmesos" {
-  vpc_id      = "${aws_vpc.mesos_vpc.id}"
-  name        = "tfmesos"
-  description = "tfmesos"
-
-  ingress {
-    from_port       = 0
-    to_port         = 65535
-    protocol        = "tcp"
-    security_groups = ["${aws_security_group.mesos.id}"]
-  }
-}
-
 resource "aws_instance" "tfmesos_framework" {
   ami           = "${var.aws_master_ami}"
   instance_type = "t2.micro"
@@ -29,7 +14,6 @@ resource "aws_instance" "tfmesos_framework" {
 
   vpc_security_group_ids = [
     "${aws_security_group.mesos.id}",
-    "${aws_security_group.tfmesos.id}",
     "${aws_security_group.allow_ssh.id}",
     "${aws_security_group.allow_outbound.id}",
   ]

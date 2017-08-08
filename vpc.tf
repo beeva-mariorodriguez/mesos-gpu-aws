@@ -27,8 +27,8 @@ resource "aws_security_group" "mesos" {
   description = "mesos"
 
   ingress {
-    from_port = 5050
-    to_port   = 5051
+    from_port = 0
+    to_port   = 65535
     protocol  = "tcp"
     self      = true
   }
