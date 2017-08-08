@@ -45,6 +45,11 @@ variable "aws_node_gpu_ami" {
   type = "string"
 }
 
+variable "aws_node_gpu_size" {
+  type = "string"
+  default = "p2.xlarge"
+}
+
 variable "aws_zk_ami" {
   type    = "string"
   default = "ami-b2795cd7" # debian-jessie-amd64-hvm-2017-01-15-1221-ebs @ us-east-2

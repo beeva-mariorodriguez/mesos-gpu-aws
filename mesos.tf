@@ -88,7 +88,7 @@ resource "aws_instance" "mesos_agent" {
 
 resource "aws_instance" "mesos_agent_gpu" {
   ami           = "${var.aws_node_gpu_ami}"
-  instance_type = "p2.xlarge"
+  instance_type = "${var.aws_node_gpu_size}"
 
   tags {
     Name = "mesos_agent_gpu"
