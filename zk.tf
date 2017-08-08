@@ -26,6 +26,7 @@ resource "aws_instance" "zk" {
     connection {
       type = "ssh"
       user = "admin"
+      private_key = "${file("${var.ssh_key_path}")}"
     }
   }
 }
