@@ -38,6 +38,7 @@ resource "aws_instance" "mesos_master" {
     connection {
       type = "ssh"
       user = "admin"
+      private_key = "${file("${var.ssh_key_path}")}"
     }
   }
 }
@@ -78,6 +79,7 @@ resource "aws_instance" "mesos_agent" {
     connection {
       type = "ssh"
       user = "admin"
+      private_key = "${file("${var.ssh_key_path}")}"
     }
   }
 
@@ -119,6 +121,7 @@ resource "aws_instance" "mesos_agent_gpu" {
     connection {
       type = "ssh"
       user = "admin"
+      private_key = "${file("${var.ssh_key_path}")}"
     }
   }
 
