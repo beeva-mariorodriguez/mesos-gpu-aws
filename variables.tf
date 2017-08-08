@@ -32,7 +32,7 @@ variable "aws_key_name" {
 }
 
 variable "ssh_key_path" {
-  type = "string"
+  type    = "string"
   default = "id_rsa"
 }
 
@@ -59,4 +59,3 @@ variable "domain_name" {
   type    = "string"
   default = "mesos.private"
 }
-

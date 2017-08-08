@@ -36,8 +36,8 @@ resource "aws_instance" "mesos_master" {
     ]
 
     connection {
-      type = "ssh"
-      user = "admin"
+      type        = "ssh"
+      user        = "admin"
       private_key = "${file("${var.ssh_key_path}")}"
     }
   }
@@ -77,8 +77,8 @@ resource "aws_instance" "mesos_agent" {
     ]
 
     connection {
-      type = "ssh"
-      user = "admin"
+      type        = "ssh"
+      user        = "admin"
       private_key = "${file("${var.ssh_key_path}")}"
     }
   }
@@ -119,13 +119,15 @@ resource "aws_instance" "mesos_agent_gpu" {
     ]
 
     connection {
-      type = "ssh"
-      user = "admin"
+      type        = "ssh"
+      user        = "admin"
       private_key = "${file("${var.ssh_key_path}")}"
     }
   }
+
   root_block_device = {
-      volume_size = 30
+    volume_size = 30
   }
+
   count = "${var.mesos_gpu_nodes}"
 }
