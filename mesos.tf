@@ -112,7 +112,7 @@ resource "aws_instance" "mesos_agent_gpu" {
       "sudo apt install -y --force-yes --no-install-recommends mesos",
       "echo ${self.private_ip} | sudo tee /etc/mesos-slave/advertise_ip",
       "echo appc,docker | sudo tee /etc/mesos-slave/image_providers",
-      "echo zk://zookeepeer.${var.domain_name}:2181/mesos | sudo tee /etc/mesos/zk",
+      "echo zk://zookeeper.${var.domain_name}:2181/mesos | sudo tee /etc/mesos/zk",
       "echo docker/runtime,filesystem/linux,cgroups/devices,gpu/nvidia | sudo tee /etc/mesos-slave/isolation",
       "sudo systemctl start mesos-slave",
       "sudo systemctl enable mesos-slave",

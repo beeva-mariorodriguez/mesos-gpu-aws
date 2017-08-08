@@ -31,8 +31,8 @@ resource "aws_instance" "tfmesos_framework" {
     ]
 
     connection {
-      type = "ssh"
-      user = "admin"
+      type        = "ssh"
+      user        = "admin"
       private_key = "${file("${var.ssh_key_path}")}"
     }
   }
